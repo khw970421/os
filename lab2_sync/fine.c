@@ -9,13 +9,14 @@ pthread_mutex_t mutex_lock;
 void *worker(int *data){
 	clock_t start,end;
 	start =clock();				//start time
-	pthread_mutex_lock(&mutex_lock);	//fine lock
+	
 
 	int local[4];
 	int p=0;
 	int threshold=5;
 	float result;
 
+	pthread_mutex_lock(&mutex_lock);	//set fine lock
 	for(int i=0;i<*data;i++){
 		local[p]++;
 		if(local[p]>=threshold)
@@ -24,10 +25,9 @@ void *worker(int *data){
 		local[p]=local[p]-threshold;
 		}
 	}
-	
-	p++;
 	pthread_mutex_unlock(&mutex_lock);	//fine unlock
 	
+	p++;
 	end = clock();				//end time
 	result = (float)(end-start)/CLOCKS_PER_SEC;
 	printf("result time %f\n",result);	//print time

@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<pthread.h>
 #include<time.h>
-
 int counter =0;
 int global = 0;
 pthread_mutex_t mutex_lock;
@@ -21,8 +20,7 @@ void *worker(int *data){
 		global+=local[p];
 		local[p]=local[p]-threshold;	//local->global
 		}
-	}
-	
+	}	
 	p++;
 	pthread_mutex_unlock(&mutex_lock);	//set unlock
 	return NULL;
